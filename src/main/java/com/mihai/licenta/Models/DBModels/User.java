@@ -18,34 +18,24 @@ public class User {
     @Column
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long uid;
-
     @Column
     private String username;
-
     @Column
     private String password;
-
     @Column
     private String email;
-
     @Column
     private Integer type;
-
     @Column
     private String photoUrl;
-
     @Column
     private String token;
-
     @Column
     private Date createdAt;
-
     @Column
     private Date updatedAt;
-
     @Column
     private String fbID;
-
 
     @JsonManagedReference
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)

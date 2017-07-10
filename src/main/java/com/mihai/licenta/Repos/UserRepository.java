@@ -31,4 +31,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     int updateUserPhotoUrl(@Param("url") String url, @Param("userID") Long userId);
 
 
+    @Modifying
+    @Transactional
+    @Query(nativeQuery = true,value = "UPDATE user u SET u.TYPE =:tipU WHERE u.uid = :userID")
+    void updateUserType(@Param("tipU") Integer type, @Param("userID") Long userID);
 }

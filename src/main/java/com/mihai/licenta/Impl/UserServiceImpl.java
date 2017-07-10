@@ -20,6 +20,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Set;
+import java.util.prefs.Preferences;
 import java.util.stream.Collectors;
 
 
@@ -132,12 +133,20 @@ public class UserServiceImpl implements UserService {
         return false;
     }
 
+    @Override
+    public Set<UserPreferences> getPrefByID(Long uid) {
+       User user = findUserById(uid);
+       if(user != null){
+           return user.getPreferences();
+       }
+       return null;
+    }
 
 
     @Override
     public User saveUser(User user, Integer createOrUpdate) {
         if (createOrUpdate == 0) {
-            user.setType(2);
+            user.setType(0);
             user.setCreatedAt(Util.getSqlDate());
             user.setUpdatedAt(Util.getSqlDate());
 
@@ -176,6 +185,7 @@ public class UserServiceImpl implements UserService {
     public Boolean removeUserToken(Long uid) {
         if (userRepository.findOne(uid) != null) {
             userRepository.removerToken(uid);
+            userRepository.updateUserType(0,uid);
             return true;
         }
         return false;
@@ -233,6 +243,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public int setUpUserPhotoUrl(String url, Long userId) {
         return userRepository.updateUserPhotoUrl(url, userId);
+    }
+
+    @Override
+    public void changeUserType(Integer type, Long userId) {
+        userRepository.updateUserType(type, userId);
     }
 
 }

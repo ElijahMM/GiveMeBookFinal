@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by mihai on 15.05.2017.
@@ -73,6 +74,16 @@ public class UserController {
         }
         if (userService.updatePreferences(userPreferencesList, uid)) {
             return ResponseEntity.status(HttpStatus.OK).body(userService.findUserById(uid).getPreferences());
+        }
+        return ResponseEntity.badRequest().build();
+    }
+
+
+    @RequestMapping(value = "/getPrefById/{id}", method = RequestMethod.GET)
+    public ResponseEntity getPrefByID(@PathVariable("id") Long uid) {
+        Set<UserPreferences> userPreferencesList = userService.getPrefByID(uid);
+        if (userPreferencesList != null) {
+            return ResponseEntity.status(HttpStatus.OK).body(userPreferencesList);
         }
         return ResponseEntity.badRequest().build();
     }

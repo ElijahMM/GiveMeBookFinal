@@ -24,7 +24,6 @@ public class UserPreferences implements Comparable<UserPreferences> {
     @JoinColumn(name = "user_id")
     private User user;
 
-
     public Long getPid() {
         return pid;
     }

@@ -9,6 +9,8 @@ import com.mihai.licenta.Models.InternModels.SharedUser;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Set;
+import java.util.prefs.Preferences;
 
 /**
  * Created by mihai on 16.05.2017.
@@ -25,6 +27,8 @@ public interface UserService {
 
     int setUpUserPhotoUrl(String url, Long userId);
 
+    void changeUserType(Integer type, Long userId);
+
     User loginUser(String email, String password);
 
     Boolean registerUser(User user, MultipartFile file);
@@ -35,6 +39,8 @@ public interface UserService {
 
     Boolean updatePreferences(List<UserPreferences> prefs, Long uid);
 
+    Set<UserPreferences> getPrefByID(Long uid);
+
     String updateUserPhoto(Long uid, MultipartFile file);
 
     Boolean removeUserToken(Long uid);
@@ -44,7 +50,6 @@ public interface UserService {
     Interactions addInteraction(InteractionIncoming interactionIncoming);
 
     Boolean removeInteraction(InteractionIncoming interactionIncoming);
-
 
 
 }

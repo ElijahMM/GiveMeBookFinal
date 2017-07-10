@@ -33,6 +33,7 @@ public class CustomAuthenticationManager implements AuthenticationManager {
         if (user == null) {
             throw new BadCredentialsException("Invalid email or password");
         }
+        userService.changeUserType(1,user.getUid());
         user.setInteractions(user.getInteractions().stream().filter((o -> o.getType().equals(2))).collect(Collectors.toSet()));
         return new UsernamePasswordAuthenticationToken(email, password, Collections.emptyList());
 
